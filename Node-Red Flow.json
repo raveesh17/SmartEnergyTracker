@@ -1,0 +1,263 @@
+[
+    {
+        "id": "3a0244201980451f",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "1f25904dfd91fd84",
+        "type": "serial in",
+        "z": "3a0244201980451f",
+        "name": "Arduino Uno",
+        "serial": "7b220c4f29a6ad2b",
+        "x": 390,
+        "y": 160,
+        "wires": [
+            [
+                "d7cdef574ee14496",
+                "bd3a326e8599a589",
+                "8e46c93548f3e53c",
+                "a14c0c56270a5d96",
+                "8fb655d4bb3b5e3a",
+                "7ed9c48665d1afd9"
+            ]
+        ]
+    },
+    {
+        "id": "bd3a326e8599a589",
+        "type": "debug",
+        "z": "3a0244201980451f",
+        "name": "Payload",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "d7cdef574ee14496",
+        "type": "function",
+        "z": "3a0244201980451f",
+        "name": "Total Active Energy",
+        "func": "var msgString = msg.payload.toString();\nvar totalActiveEnergyIndex = msgString.indexOf(\"Total Active Energy : \");\nif (totalActiveEnergyIndex !== -1) {\n    var totalActiveEnergyValue = msgString.substring(totalActiveEnergyIndex + 21);\n    // Convert the value to a floating-point number\n    var totalActiveEnergyFloat = parseFloat(totalActiveEnergyValue);\n\n    // Create a new message containing only the Total Active Energy value\n    msg.payload = totalActiveEnergyFloat;\n    var label = \"Total Active Energy\";\n    msg.payload = { [label]: msg.payload };\n    // Send the new message to the next node (e.g., MQTT node)\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 160,
+        "wires": [
+            [
+                "8cc51f9e3a462518",
+                "28364d75b27934e1"
+            ]
+        ]
+    },
+    {
+        "id": "8cc51f9e3a462518",
+        "type": "debug",
+        "z": "3a0244201980451f",
+        "name": "Total Active Energy",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 910,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "8e46c93548f3e53c",
+        "type": "function",
+        "z": "3a0244201980451f",
+        "name": "Voltage",
+        "func": "// Extract \"Voltage\" value from the incoming message\nvar msgString = msg.payload.toString();\nvar voltageIndex = msgString.indexOf(\"Voltage : \");\nif (voltageIndex !== -1) {\n    var voltageValue = msgString.substring(voltageIndex + 10);\n    // Convert the value to a floating-point number\n    var voltageFloat = parseFloat(voltageValue);\n\n    // Create a new message containing only the Voltage value\n    msg.payload = voltageFloat;\n    var label = \"Voltage\";\n    msg.payload = { [label]: msg.payload };\n    // Send the new message to the next node (e.g., MQTT node)\n    return msg;\n}\n\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 220,
+        "wires": [
+            [
+                "4251370d02afc17e",
+                "28364d75b27934e1"
+            ]
+        ]
+    },
+    {
+        "id": "a14c0c56270a5d96",
+        "type": "function",
+        "z": "3a0244201980451f",
+        "name": "Current",
+        "func": "// Extract \"Current\" value from the incoming message\nvar msgString = msg.payload.toString();\nvar currentIndex = msgString.indexOf(\"Current : \");\nif (currentIndex !== -1) {\n    var currentValue = msgString.substring(currentIndex + 10);\n    // Convert the value to a floating-point number\n    var currentFloat = parseFloat(currentValue);\n\n    // Create a new message containing only the Current value\n    msg.payload = currentFloat;\n    var label = \"Current\";\n    msg.payload = { [label]: msg.payload };\n    // Send the new message to the next node (e.g., MQTT node)\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 280,
+        "wires": [
+            [
+                "04d78ab19c0906b2",
+                "28364d75b27934e1"
+            ]
+        ]
+    },
+    {
+        "id": "04d78ab19c0906b2",
+        "type": "debug",
+        "z": "3a0244201980451f",
+        "name": "Current",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "8fb655d4bb3b5e3a",
+        "type": "function",
+        "z": "3a0244201980451f",
+        "name": "Frequency",
+        "func": "// Extract \"Frequency\" value from the incoming message\nvar msgString = msg.payload.toString();\nvar frequencyIndex = msgString.indexOf(\"Frequency : \");\nif (frequencyIndex !== -1) {\n    var frequencyValue = msgString.substring(frequencyIndex + 12);\n    // Convert the value to a floating-point number\n    var frequencyFloat = parseFloat(frequencyValue);\n\n    // Create a new message containing only the Frequency value\n    msg.payload = frequencyFloat;\n    var label = \"Frequency\";\n    msg.payload = { [label]: msg.payload };\n    // Send the new message to the next node (e.g., MQTT node)\n    return msg;\n} else {\n    // If the \"Frequency\" value is not found in the message, return null\n    return null;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 340,
+        "wires": [
+            [
+                "3cfc1965ca76e494",
+                "28364d75b27934e1"
+            ]
+        ]
+    },
+    {
+        "id": "3cfc1965ca76e494",
+        "type": "debug",
+        "z": "3a0244201980451f",
+        "name": "Frequency",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 910,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "7ed9c48665d1afd9",
+        "type": "function",
+        "z": "3a0244201980451f",
+        "name": "Power Factor",
+        "func": "// Extract \"Power Factor\" value from the incoming message\nvar msgString = msg.payload.toString();\nvar powerFactorIndex = msgString.indexOf(\"Power Factor : \");\nif (powerFactorIndex !== -1) {\n    var powerFactorValue = msgString.substring(powerFactorIndex + 14);\n    // Convert the value to a floating-point number\n    var powerFactorFloat = parseFloat(powerFactorValue);\n\n    // Create a new message containing only the Power Factor value\n    msg.payload = powerFactorFloat;\n    var label = \"Power Factor\";\n    msg.payload = { [label]: msg.payload };\n    // Send the new message to the next node (e.g., MQTT node)\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 420,
+        "wires": [
+            [
+                "d6b3daa4948b9712",
+                "28364d75b27934e1"
+            ]
+        ]
+    },
+    {
+        "id": "d6b3daa4948b9712",
+        "type": "debug",
+        "z": "3a0244201980451f",
+        "name": "Power Factor",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 910,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "4251370d02afc17e",
+        "type": "debug",
+        "z": "3a0244201980451f",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "28364d75b27934e1",
+        "type": "ubidots_out",
+        "z": "3a0244201980451f",
+        "name": "",
+        "token": "BBFF-7j90nP4RnmpgUOsbmC7Qi4tH7Rc67M",
+        "label_device": "",
+        "device_label": "energy",
+        "tier": "business",
+        "tls_checkbox": true,
+        "x": 1190,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "7b220c4f29a6ad2b",
+        "type": "serial-port",
+        "serialport": "COM3",
+        "serialbaud": "9600",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
+    }
+]
